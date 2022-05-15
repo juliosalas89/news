@@ -1,4 +1,4 @@
-const Categoria = () => {
+const Categoria = (porps) => {
 
     return (
         <div>

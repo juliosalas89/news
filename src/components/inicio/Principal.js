@@ -4,7 +4,7 @@ import CardDivisas from "./CardDivisas";
 import CuerpoCategorias from "./CuerpoCategorias";
 import CuerpoDestacadas from "./CuerpoDestacadas";
 
-const Principal = () => {
+const Principal = (props) => {
   let [dolar, setDolar] = useState(0);
   let [yen, setYen] = useState(0);
   let [clima, setClima] = useState();
@@ -22,6 +22,7 @@ const Principal = () => {
       );
       let respuesta = await climaAPI.json();
       setClima(respuesta);
+      console.log("Se consultó el clima")
     } catch (error) {
       console.log(error);
     }
@@ -35,6 +36,7 @@ const Principal = () => {
       let respuesta = await divisas.json();
       setDolar(respuesta.rates.USD);
       setYen(respuesta.rates.JPY);
+      console.log("Se consultó divisas")
     } catch (error) {
       console.log(error);
     }
@@ -50,12 +52,12 @@ const Principal = () => {
         </section>
         <section className="row">
           <div className="col-sm-12 col-md-8">
-            <CuerpoDestacadas></CuerpoDestacadas>
+            <CuerpoDestacadas noticias={props.noticias}></CuerpoDestacadas>
           </div>
           <div className="col-sm-12 col-md-4">Aqui va una add</div>
         </section>
         <section>
-          <CuerpoCategorias></CuerpoCategorias>
+          <CuerpoCategorias noticias={props.noticias}></CuerpoCategorias>
         </section>
       </div>
     </article>
