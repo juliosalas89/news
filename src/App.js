@@ -4,22 +4,36 @@ import Header from './components/generales/Header';
 import Footer from './components/generales/Footer';
 import Principal from './components/inicio/Principal';
 import { useEffect, useState } from 'react';
+import { Routes, Route } from "react-router-dom"
 
 function App() {
-  let [noticias, setNoticias] = useState([])
+  let [noticias, setNoticias] = useState([]);
+  let [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    consultarBack();
+    consultarNoticias();
+    consultarCategorias();
   }, [])
 
-  let consultarBack = async () => {
+  let consultarNoticias = async () => {
     try {
       let consulta = await fetch("http://localhost:4000/api/noticias");
       let respuesta = await consulta.json();
-      console.log("Desde consultarBack-APP.js: " + respuesta)
+      console.log("Desde consultarNoticias-APP.js: " + respuesta)
       setNoticias(respuesta)
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  let consultarCategorias = async () => {
+    try {
+      let consulta = await fetch("http://localhost:4000/api/categorias")
+      let respuesta = await consulta.json();
+      setCategorias(respuesta)
+      console.log("Desde consultarCategorias-APP.js: " + respuesta)
+    } catch(error) {
+      console.log(error)
     }
   }
 
@@ -28,7 +42,7 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path="/" element={
-          noticias ? <Principal noticias={noticias}></Principal> : null
+          (noticias && categorias) ? <Principal noticias={noticias} categorias={categorias}></Principal> : null
         }> </Route>
       </Routes>
       <Footer></Footer>

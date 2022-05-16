@@ -48,7 +48,7 @@ const Principal = (props) => {
         <section className="my-3 d-flex">
           <div className="w-50 text-center">Aqui va la ADD</div>
           {clima ? <CardClima clima={clima}></CardClima> : null}
-          <CardDivisas dolar={dolar} yen={yen}></CardDivisas>
+          {(dolar && yen) ? <CardDivisas dolar={dolar} yen={yen}></CardDivisas> : null}
         </section>
         <section className="row">
           <div className="col-sm-12 col-md-8">
@@ -57,7 +57,7 @@ const Principal = (props) => {
           <div className="col-sm-12 col-md-4">Aqui va una add</div>
         </section>
         <section>
-          <CuerpoCategorias noticias={props.noticias}></CuerpoCategorias>
+          <CuerpoCategorias noticias={props.noticias} categorias={props.categorias}></CuerpoCategorias>
         </section>
       </div>
     </article>
