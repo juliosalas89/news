@@ -1,63 +1,79 @@
 import { useEffect, useState } from "react";
+import NoticiaPorCategoria from "./NoticiaPorCategoria";
 
 const Categoria = (props) => {
-    let [noticiasDeCategoria, setNoticiasDeCategoria] = useState(null);
-    let [lastDate1, setLastDate1] = useState(null);
-    let [lastDate2, setLastDate2] = useState(null);
+    let [categoryNews, setCategoryNews] = useState(null);
+    let [firstNew, setFirstNew] = useState(null);
+    let [secondNew, setSecondNew] = useState(null);
 
     useEffect(() => {
-        filtrarPorCategoria();
+        filterByCategory();
         // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
-        if (noticiasDeCategoria) {
-            filterLastDate1();
+        if (categoryNews) {
+            findFirstNew();
         }
         // eslint-disable-next-line
-    }, [noticiasDeCategoria])
+    }, [categoryNews])
 
     useEffect(() => {
-        if (lastDate1) {
-            filterLastDate2();
+        if (firstNew) {
+            findSecondNew();
         }
         // eslint-disable-next-line
-    }, [lastDate1])
+    }, [firstNew])
 
-    let filtrarPorCategoria = () => {
-        let filtro = props.noticias.filter(noticia => noticia.categoria === props.categoria.nombre);
-        setNoticiasDeCategoria(filtro);
-        console.log(filtro)
+    let filterByCategory = () => {
+        let filter = props.noticias.filter(noticia => noticia.categoria === props.categoria.nombre);
+        setCategoryNews(filter);
     }
 
-    let filterLastDate1 = () => {
-        let dates = [];
-        noticiasDeCategoria.map((noticia) => dates.push(new Date(noticia.fecha)));
-        let auxLastDate1 = new Date(Math.max.apply(Math, dates));
-        setLastDate1(auxLastDate1)
-        console.log(auxLastDate1);
-        console.log(typeof dates[0])
+    let findFirstNew = () => {
+        let max = true;
+        for (let i = 0; i < categoryNews.length; i++) {
+            for (let j = 0; j < categoryNews.length; j++) {
+                if (categoryNews[i].fecha < categoryNews[j].fecha) {
+                    max = false;
+                }
+            }
+            if (max) {
+                setFirstNew(categoryNews[i]);
+            }
+            max = true;
+        }
     }
 
-    let filterLastDate2 = () => {
-        let dates = [];
-        noticiasDeCategoria.map((noticia) => dates.push(new Date(noticia.fecha)));
-        let _dates = dates.filter((date) => date !== lastDate1);
-        console.log(_dates);
-        console.log(lastDate1)
-        let auxLastDate2 = new Date(Math.max.apply(Math, _dates));
-        setLastDate2(auxLastDate2);
-        console.log(auxLastDate2);
-    }
-
-    let lastTwoNews = () => {
-        let lastTwoNews = noticiasDeCategoria.filter((noticia) => noticia.fecha === lastDate1 || noticia.fecha === lastDate2);
-        console.log(lastTwoNews);
+    let findSecondNew = () => {
+        let max2 = true;
+        for (let i = 0; i < categoryNews.length; i++) {
+            for (let j = 0; j < categoryNews.length; j++) {
+                if (categoryNews[i]._id === firstNew._id) {
+                    max2 = false;
+                } else if (categoryNews[i].fecha < categoryNews[j].fecha && categoryNews[j]._id !== firstNew._id) {
+                    max2 = false;
+                }
+            }
+            if (max2) {
+                setSecondNew(categoryNews[i]);
+            }
+            max2 = true;
+        }
     }
 
     return (
         <div>
-            <h1>{props.categoria.nombre}</h1>
+            <div>
+                {
+                    firstNew ? <NoticiaPorCategoria noticia={firstNew}></NoticiaPorCategoria> : null
+                }
+            </div>
+            <div>
+                {
+                    secondNew ? <NoticiaPorCategoria noticia={secondNew}></NoticiaPorCategoria> : null
+                }
+            </div>
         </div>
     );
 };
