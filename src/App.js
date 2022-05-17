@@ -45,7 +45,7 @@ function App() {
         <Route path="/" element={
           (noticias && categorias) ? <Principal noticias={noticias} categorias={categorias}></Principal> : null
         }> </Route>
-        <Route path="/categoria/:id" element={<PagCategoria></PagCategoria>}></Route>
+        <Route path="/categoria/:id" element={<PagCategoria noticias={noticias} categorias={categorias}></PagCategoria>}></Route>
       </Routes>
       <Footer></Footer>
     </div>

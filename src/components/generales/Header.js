@@ -21,7 +21,7 @@ const Header = (props) => {
     <div>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Rolling news</Navbar.Brand>
+          <NavLink to="/" className={"navbar-brand"}>Rolling news</NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
