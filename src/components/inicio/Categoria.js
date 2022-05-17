@@ -63,7 +63,8 @@ const Categoria = (props) => {
     }
 
     return (
-        <div>
+        <div className="my-2">
+            <h4 className="text-center">{props.categoria.nombre}</h4>
             <div>
                 {
                     firstNew ? <NoticiaPorCategoria noticia={firstNew}></NoticiaPorCategoria> : null
