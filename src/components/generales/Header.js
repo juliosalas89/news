@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -9,8 +9,14 @@ import {
   faRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
+import CategLink from "./CategLink";
 
-const Header = () => {
+const Header = (props) => {
+  // eslint-disable-next-line
+  let [navItemClass, setNavItemClass] = useState("nav-link");
+  // eslint-disable-next-line
+  let [dropItemClass, setDropItemClass] = useState("dropdown-item");
+
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -22,58 +28,14 @@ const Header = () => {
               <NavLink exact={"true"} to="/" className="nav-link">
                 Principal
               </NavLink>
-              <NavLink
-                exact={"true"}
-                to="/categorias/actualidad"
-                className="nav-link"
-              >
-                Actualidad
-              </NavLink>
-              <NavLink
-                exact={"true"}
-                to="/categorias/espectaculos"
-                className="nav-link"
-              >
-                Espectaculos
-              </NavLink>
-              <NavLink
-                exact={"true"}
-                to="/categorias/deportes"
-                className="nav-link"
-              >
-                Deportes
-              </NavLink>
+              {
+                props.categorias.slice(0, 4).map(categoria => <CategLink key={categoria._id} categoria={categoria} clase={navItemClass}></CategLink>)
+              }
               <Nav.Link href="#masCategorias"></Nav.Link>
               <NavDropdown title="Más Categorías" id="collasible-nav-dropdown">
-                <NavLink
-                  exact={"true"}
-                  to="/categorias/tecnologia"
-                  className="dropdown-item"
-                >
-                  Tecnologia
-                </NavLink>
-                <NavLink
-                  exact={"true"}
-                  to="/categorias/politica"
-                  className="dropdown-item"
-                >
-                  Politica
-                </NavLink>
-                <NavLink
-                  exact={"true"}
-                  to="/categorias/economia"
-                  className="dropdown-item"
-                  >
-                  Economia
-                </NavLink>
-                <NavLink
-                  exact={"true"}
-                  to="/categorias/salud"
-                  className="dropdown-item"
-                >
-                  Salud
-                </NavLink>
-                <NavDropdown.Divider />
+                {
+                  props.categorias.slice(5, 100).map(categoria => <CategLink key={categoria._id} categoria={categoria} clase={dropItemClass}></CategLink>)
+                }
               </NavDropdown>
             </Nav>
             <Nav>

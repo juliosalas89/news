@@ -5,10 +5,11 @@ import Footer from './components/generales/Footer';
 import Principal from './components/inicio/Principal';
 import { useEffect, useState } from 'react';
 import { Routes, Route } from "react-router-dom"
+import PagCategoria from './components/pagCategoria/PagCategoria';
 
 function App() {
-  let [noticias, setNoticias] = useState([]);
-  let [categorias, setCategorias] = useState([]);
+  let [noticias, setNoticias] = useState(null);
+  let [categorias, setCategorias] = useState(null);
 
   useEffect(() => {
     consultarNoticias();
@@ -30,18 +31,21 @@ function App() {
       let consulta = await fetch("http://localhost:4000/api/categorias")
       let respuesta = await consulta.json();
       setCategorias(respuesta)
-    } catch(error) {
+    } catch (error) {
       console.log(error)
     }
   }
 
   return (
     <div>
-      <Header></Header>
+      {
+        categorias ? <Header categorias={categorias}></Header> : null
+      }
       <Routes>
         <Route path="/" element={
           (noticias && categorias) ? <Principal noticias={noticias} categorias={categorias}></Principal> : null
         }> </Route>
+        <Route path="/categoria/:id" element={<PagCategoria></PagCategoria>}></Route>
       </Routes>
       <Footer></Footer>
     </div>
