@@ -22,7 +22,6 @@ const Principal = (props) => {
       );
       let respuesta = await climaAPI.json();
       setClima(respuesta);
-      console.log("Se consultó el clima")
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +35,6 @@ const Principal = (props) => {
       let respuesta = await divisas.json();
       setDolar(respuesta.rates.USD);
       setYen(respuesta.rates.JPY);
-      console.log("Se consultó divisas")
     } catch (error) {
       console.log(error);
     }

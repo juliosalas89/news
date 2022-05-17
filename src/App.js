@@ -19,7 +19,6 @@ function App() {
     try {
       let consulta = await fetch("http://localhost:4000/api/noticias");
       let respuesta = await consulta.json();
-      console.log("Desde consultarNoticias-APP.js: " + respuesta)
       setNoticias(respuesta)
     } catch (error) {
       console.log(error);
@@ -31,7 +30,6 @@ function App() {
       let consulta = await fetch("http://localhost:4000/api/categorias")
       let respuesta = await consulta.json();
       setCategorias(respuesta)
-      console.log("Desde consultarCategorias-APP.js: " + respuesta)
     } catch(error) {
       console.log(error)
     }
