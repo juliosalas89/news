@@ -2,8 +2,7 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 
 const CategLink = (props) => {
-
-    let prepararTitulo = (nombre)=> {
+    let prepararTitulo = (nombre) => {
         return nombre.charAt(0).toUpperCase() + nombre.slice(1);
     }
 
@@ -11,8 +10,7 @@ const CategLink = (props) => {
         <NavLink
             exact={"true"}
             to={`/categoria/${props.categoria._id}`}
-            className={props.clase}
-        >
+            className={props.clase}>
             {prepararTitulo(props.categoria.nombre)}
         </NavLink>
     );

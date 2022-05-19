@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom"
+import ordenarPorFecha from '../helpers/ordenarPorFecha';
 import NoticiaDestacada from '../inicio/NoticiaDestacada';
 import NoticiaGeneral from './NoticiaGeneral';
 
@@ -9,20 +10,20 @@ const PagCategoria = (props) => {
     let [noticiasDestacadas, setNoticiasDestacadas] = useState(null)
     let [noticiasNODestacadas, setNoticiasNODestacadas] = useState(null)
     let params = useParams()
-    
-    useEffect(()=> {
+
+    useEffect(() => {
         findCategory();
         //eslint-disable-next-line
     }, []);
 
-    useEffect(()=> {
+    useEffect(() => {
         if (categoria) {
             noticiasPorCategoria();
         }
         //eslint-disable-next-line
     }, [categoria]);
 
-    useEffect(()=> {
+    useEffect(() => {
         if (categoryNews) {
             buscarNoticiasDestacadas();
             buscarNoticiasNODestacadas();
@@ -30,25 +31,28 @@ const PagCategoria = (props) => {
         //eslint-disable-next-line
     }, [categoryNews]);
 
-    let findCategory = ()=> {
+    let findCategory = () => {
         let foundedObject = props.categorias.find(categoria => categoria._id === params.id)
         setCategoria(foundedObject)
     }
 
-    let noticiasPorCategoria = ()=> {
+    let noticiasPorCategoria = () => {
         let porCategoria = props.noticias.filter(noticia => noticia.categoria === categoria.nombre);
         setCategoryNews(porCategoria);
-        console.log(porCategoria)
     }
 
-    let buscarNoticiasDestacadas = ()=> {
-        let destacadas = categoryNews.filter(noticia => noticia.destacada === true)
-        if (destacadas.length > 0) {setNoticiasDestacadas(destacadas)}
+    let buscarNoticiasDestacadas = () => {
+        let destacadas = ordenarPorFecha(categoryNews.filter(noticia => noticia.destacada === true));
+        // let destacadasOrdenadas = ordenarPorFecha(destacadas)
+        if (destacadas.length > 0) { setNoticiasDestacadas(destacadas) };
+        console.table(destacadas);
     }
-    
-    let buscarNoticiasNODestacadas = ()=> {
-        let noDestacadas = categoryNews.filter(noticia => noticia.destacada === false)
-        if (noDestacadas.length > 0) {setNoticiasNODestacadas(noDestacadas)}
+
+    let buscarNoticiasNODestacadas = () => {
+        let noDestacadas = ordenarPorFecha(categoryNews.filter(noticia => noticia.destacada === false));
+        // let noDestacadasOrdenadas = ordenarPorFecha(noDestacadas)
+        if (noDestacadas.length > 0) { setNoticiasNODestacadas(noDestacadas) };
+        console.table(noDestacadas);
     }
 
     return (
@@ -58,10 +62,10 @@ const PagCategoria = (props) => {
             }
             <hr />
             {
-                noticiasDestacadas ? noticiasDestacadas.map(noticia => (<NoticiaDestacada noticia={noticia}></NoticiaDestacada>)) : null
+                noticiasDestacadas ? noticiasDestacadas.map(noticia => (<NoticiaDestacada key={noticia._id} noticia={noticia}></NoticiaDestacada>)) : null
             }
             {
-                noticiasNODestacadas? noticiasNODestacadas.map(noticia => (<NoticiaGeneral noticia={noticia}></NoticiaGeneral>)) : null
+                noticiasNODestacadas ? noticiasNODestacadas.map(noticia => (<NoticiaGeneral key={noticia._id} noticia={noticia}></NoticiaGeneral>)) : null
             }
         </div>
     );
