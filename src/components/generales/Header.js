@@ -29,12 +29,12 @@ const Header = (props) => {
                 Principal
               </NavLink>
               {
-                props.categorias.slice(0, 4).map(categoria => <CategLink key={categoria._id} categoria={categoria} clase={navItemClass}></CategLink>)
+                props.categorias.slice(0, 4).map(categoria => <CategLink key={categoria._id} setCategoriaNav={props.setCategoriaNav} categoria={categoria} clase={navItemClass}></CategLink>)
               }
               <Nav.Link href="#masCategorias"></Nav.Link>
               <NavDropdown title="Más Categorías" id="collasible-nav-dropdown">
                 {
-                  props.categorias.slice(5, 100).map(categoria => <CategLink key={categoria._id} categoria={categoria} clase={dropItemClass}></CategLink>)
+                  props.categorias.slice(5, 100).map(categoria => <CategLink key={categoria._id} setCategoriaNav={props.setCategoriaNav} categoria={categoria} clase={dropItemClass}></CategLink>)
                 }
               </NavDropdown>
             </Nav>

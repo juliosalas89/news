@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom"
 import ordenarPorFecha from '../helpers/ordenarPorFecha';
 import NoticiaDestacada from '../inicio/NoticiaDestacada';
 import NoticiaGeneral from './NoticiaGeneral';
 
 const PagCategoria = (props) => {
-    let [categoria, setCategoria] = useState(null);
     let [categoryNews, setCategoryNews] = useState(null);
     let [noticiasDestacadas, setNoticiasDestacadas] = useState(null)
     let [noticiasNODestacadas, setNoticiasNODestacadas] = useState(null)
-    let params = useParams()
 
     useEffect(() => {
-        findCategory();
-        //eslint-disable-next-line
-    }, []);
-
-    useEffect(() => {
-        if (categoria) {
+        if (props.categoriaNav) {
             noticiasPorCategoria();
         }
         //eslint-disable-next-line
-    }, [categoria]);
+    }, [props.categoriaNav]);
 
     useEffect(() => {
         if (categoryNews) {
@@ -31,19 +23,13 @@ const PagCategoria = (props) => {
         //eslint-disable-next-line
     }, [categoryNews]);
 
-    let findCategory = () => {
-        let foundedObject = props.categorias.find(categoria => categoria._id === params.id)
-        setCategoria(foundedObject)
-    }
-
     let noticiasPorCategoria = () => {
-        let porCategoria = props.noticias.filter(noticia => noticia.categoria === categoria.nombre);
+        let porCategoria = props.noticias.filter(noticia => noticia.categoria === props.categoriaNav.nombre);
         setCategoryNews(porCategoria);
     }
 
     let buscarNoticiasDestacadas = () => {
         let destacadas = ordenarPorFecha(categoryNews.filter(noticia => noticia.destacada === true));
-        // let destacadasOrdenadas = ordenarPorFecha(destacadas)
         if (destacadas.length > 0) { setNoticiasDestacadas(destacadas) };
         console.table(destacadas);
     }
@@ -58,7 +44,7 @@ const PagCategoria = (props) => {
     return (
         <div>
             {
-                categoria ? <h1 className='text-center'>{categoria.nombre.toUpperCase()}</h1> : null
+                props.categoriaNav ? <h1 className='text-center'>{props.categoriaNav.nombre.toUpperCase()}</h1> : null
             }
             <hr />
             {

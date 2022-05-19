@@ -8,8 +8,7 @@ import { Routes, Route } from "react-router-dom"
 import PagCategoria from './components/pagCategoria/PagCategoria';
 
 function App() {
-  // eslint-disable-next-line
-  let [categoriaSelect, setCategoriaSelect] = useState(false)
+  let [categoriaNav, setCategoriaNav] = useState(null)
   let [noticias, setNoticias] = useState(null);
   let [categorias, setCategorias] = useState(null);
 
@@ -41,13 +40,13 @@ function App() {
   return (
     <div>
       {
-        categorias ? <Header setCategoriaSelect={setCategoriaSelect} categorias={categorias}></Header> : null
+        categorias ? <Header setCategoriaNav={setCategoriaNav} categorias={categorias}></Header> : null
       }
       <Routes>
         <Route path="/" element={
           (noticias && categorias) ? <Principal noticias={noticias} categorias={categorias}></Principal> : null
         }> </Route>
-        <Route path="/categoria/:id" element={<PagCategoria categoriaSelect={categoriaSelect} noticias={noticias} categorias={categorias}></PagCategoria>}></Route>
+        <Route path="/categoria/:id" element={<PagCategoria categoriaNav={categoriaNav} noticias={noticias} categorias={categorias}></PagCategoria>}></Route>
       </Routes>
       <Footer></Footer>
     </div>
