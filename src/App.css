@@ -10,3 +10,29 @@
 .noticias{
     width: 500px;
 }
+
+.imgDestacadaPorCat{
+    object-fit: cover;
+}
+
+@media all and (min-width: 992px) {
+    .imgDestacadaPorCat {
+      height: 350px;  
+    }
+  }
+
+@media all and (min-width: 600px) and (max-width: 991px) {
+    .imgDestacadaPorCat {
+      height: 300px;  
+    }
+  }
+
+  @media all and (max-width: 599px) {
+    .imgDestacadaPorCat {
+      height: 250px;  
+    }
+  }
+
+  .imgNoticiaGeneral{
+    object-fit: cover;   
+  }

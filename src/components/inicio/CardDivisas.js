@@ -7,7 +7,6 @@ const CardDivisas = (props) => {
         <Card.Body>
           <Card.Title>Cotizaciones hoy:</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            Card Subtitle
           </Card.Subtitle>
           <div className="row justify-content-around">
           <Card.Text className="col-md-12 col-lg-6">

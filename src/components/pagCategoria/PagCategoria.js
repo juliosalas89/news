@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ordenarPorFecha from '../helpers/ordenarPorFecha';
-import NoticiaDestacada from '../inicio/NoticiaDestacada';
+import DestacadaPorCateg from './DestacadaPorCateg';
 import NoticiaGeneral from './NoticiaGeneral';
 
 const PagCategoria = (props) => {
     let [categoryNews, setCategoryNews] = useState(null);
-    let [noticiasDestacadas, setNoticiasDestacadas] = useState(null)
-    let [noticiasNODestacadas, setNoticiasNODestacadas] = useState(null)
+    let [noticiaDestacada, setNoticiaDestacada] = useState({})
+    let [noticiasNODestacadas, setNoticiasNODestacadas] = useState([])
 
     useEffect(() => {
         if (props.categoriaNav) {
@@ -17,42 +17,70 @@ const PagCategoria = (props) => {
 
     useEffect(() => {
         if (categoryNews) {
-            buscarNoticiasDestacadas();
-            buscarNoticiasNODestacadas();
+            buscarNoticiaDestacada();
         }
         //eslint-disable-next-line
     }, [categoryNews]);
 
+    useEffect(() => {
+        if (Object.keys(noticiaDestacada).length > 0 && categoryNews) {
+            buscarNoticiasNODestacadas();
+        } else if (Object.keys(noticiaDestacada).length === 0 && categoryNews) {
+            setearTodas()
+        }
+        //eslint-disable-next-line
+    }, [noticiaDestacada]);
+
     let noticiasPorCategoria = () => {
-        let porCategoria = props.noticias.filter(noticia => noticia.categoria === props.categoriaNav.nombre);
+        let porCategoria = ordenarPorFecha(props.noticias.filter(noticia => noticia.categoria === props.categoriaNav.nombre));
         setCategoryNews(porCategoria);
     }
 
-    let buscarNoticiasDestacadas = () => {
-        let destacadas = ordenarPorFecha(categoryNews.filter(noticia => noticia.destacada === true));
-        if (destacadas.length > 0) { setNoticiasDestacadas(destacadas) };
-        console.table(destacadas);
+    let buscarNoticiaDestacada = () => {
+        let destacada = categoryNews.find(noticia => noticia.destacada === true);
+        if (destacada) {
+            setNoticiaDestacada(destacada)
+        } else {
+            setNoticiaDestacada({})
+            console.log("desde set vacia")
+        }
     }
 
     let buscarNoticiasNODestacadas = () => {
-        let noDestacadas = ordenarPorFecha(categoryNews.filter(noticia => noticia.destacada === false));
-        // let noDestacadasOrdenadas = ordenarPorFecha(noDestacadas)
-        if (noDestacadas.length > 0) { setNoticiasNODestacadas(noDestacadas) };
-        console.table(noDestacadas);
+        let noDestacadas = ordenarPorFecha(categoryNews.filter(noticia => noticia._id !== noticiaDestacada._id));
+        setNoticiasNODestacadas(noDestacadas)
+        console.log("desde set No destacadas")
+    }
+
+    let setearTodas = () => {
+        setNoticiasNODestacadas(categoryNews);
     }
 
     return (
-        <div>
-            {
-                props.categoriaNav ? <h1 className='text-center'>{props.categoriaNav.nombre.toUpperCase()}</h1> : null
-            }
-            <hr />
-            {
-                noticiasDestacadas ? noticiasDestacadas.map(noticia => (<NoticiaDestacada key={noticia._id} noticia={noticia}></NoticiaDestacada>)) : null
-            }
-            {
-                noticiasNODestacadas ? noticiasNODestacadas.map(noticia => (<NoticiaGeneral key={noticia._id} noticia={noticia}></NoticiaGeneral>)) : null
-            }
+        <div className='container'>
+            <div className='mt-5'>
+                {
+                    props.categoriaNav ? <h1 className='text-center'>{props.categoriaNav.nombre.toUpperCase()}</h1> : null
+                }
+                <hr />
+            </div>
+            <section className='row'>
+                <div className='col-sm-12 col-md-10'>
+                    <div>
+                        {
+                            (Object.keys(noticiaDestacada).length > 0) ? <DestacadaPorCateg key={noticiaDestacada._id} noticia={noticiaDestacada}></DestacadaPorCateg> : null
+                        }
+                    </div>
+                    <div>
+                        {
+                            noticiasNODestacadas ? noticiasNODestacadas.slice(0, 10).map(noticia => (<NoticiaGeneral key={noticia._id} noticia={noticia}></NoticiaGeneral>)) : null
+                        }
+                    </div>
+                </div>
+                <div className='border border-primary col-sm-12 col-md-2'>
+                    <h5>aqui va una add</h5>
+                </div>
+            </section>
         </div>
     );
 };
