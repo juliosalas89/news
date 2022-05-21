@@ -6,6 +6,7 @@ import Principal from './components/inicio/Principal';
 import { useEffect, useState } from 'react';
 import { Routes, Route } from "react-router-dom"
 import PagCategoria from './components/pagCategoria/PagCategoria';
+import PagNoticia from './components/noticias/PagNoticia';
 
 function App() {
   let [categoriaNav, setCategoriaNav] = useState(null)
@@ -47,6 +48,7 @@ function App() {
           (noticias && categorias) ? <Principal noticias={noticias} categorias={categorias}></Principal> : null
         }> </Route>
         <Route path="/categoria/:id" element={<PagCategoria categoriaNav={categoriaNav} noticias={noticias} categorias={categorias}></PagCategoria>}></Route>
+        <Route path='/noticia/:id' element={<PagNoticia noticias={noticias}></PagNoticia>}></Route>
       </Routes>
       <Footer></Footer>
     </div>
