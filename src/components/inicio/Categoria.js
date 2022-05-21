@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import NoticiaPorCategoria from "./NoticiaPorCategoria";
+import mayusculas from "../helpers/mayusculas";
+import NoticiaGeneral from "../pagCategoria/NoticiaGeneral";
 
 const Categoria = (props) => {
     let [categoryNews, setCategoryNews] = useState(null);
@@ -64,15 +65,15 @@ const Categoria = (props) => {
 
     return (
         <div className="my-2">
-            <h4 className="text-center">{props.categoria.nombre}</h4>
+            <h4 className="text-center">{mayusculas(props.categoria.nombre)}</h4>
             <div>
                 {
-                    firstNew ? <NoticiaPorCategoria noticia={firstNew}></NoticiaPorCategoria> : null
+                    firstNew ? <NoticiaGeneral noticia={firstNew}></NoticiaGeneral> : null
                 }
             </div>
             <div>
                 {
-                    secondNew ? <NoticiaPorCategoria noticia={secondNew}></NoticiaPorCategoria> : null
+                    secondNew ? <NoticiaGeneral noticia={secondNew}></NoticiaGeneral> : null
                 }
             </div>
         </div>

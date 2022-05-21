@@ -1,20 +1,22 @@
-import Card from "react-bootstrap/Card";
+import React from 'react';
+import Card from 'react-bootstrap/Card'
 import putin from "../../img/putin.webp";
+import primerasLetrasMayuscula from '../helpers/primerasLetrasMayuscula';
 
-const NoticiaDestacada = (props) => {
-  
-  return (
-    <div>
-      <Card className="my-3">
-        <Card.Img variant="top" src={putin}/>
-        <Card.Body>
-          <Card.Title> {props.noticia.titulo} </Card.Title>
-          <Card.Text> {props.noticia.descripcion}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </div>
-  );
+const DestacadaPorCateg = (props) => {
+
+    return (
+        <Card className="bg-dark mb-3">
+            <Card.Img className='imgDestacadaPorCat' src={putin} alt="Card image" />
+            <Card.ImgOverlay className="shadow">
+                <Card.Title>{primerasLetrasMayuscula(props.noticia.titulo)}</Card.Title>
+                <Card.Text>
+                    {props.noticia.descripcion}
+                </Card.Text>
+                <Card.Text>Last updated 3 mins ago</Card.Text>
+            </Card.ImgOverlay>
+        </Card>
+    );
 };
 
-export default NoticiaDestacada;
+export default DestacadaPorCateg;

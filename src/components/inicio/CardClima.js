@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 
 const CardClima = (props) => {
   return (
-      <Card className="w-25 px-1">
+      <Card className="ms-3 w-25 px-1">
         <Card.Body>
           <Card.Title> Madrid - España</Card.Title>
           <img

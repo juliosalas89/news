@@ -36,3 +36,7 @@
   .imgNoticiaGeneral{
     object-fit: cover;   
   }
+
+  .shadow{
+      text-shadow: 2px 2px 8px #ffffff;
+  }

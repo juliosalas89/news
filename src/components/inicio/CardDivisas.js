@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 
 const CardDivisas = (props) => {
   return (
-      <Card className="w-25 px-1">
+      <Card className="ms-3 w-25 px-1">
         <Card.Body>
           <Card.Title>Cotizaciones hoy:</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">

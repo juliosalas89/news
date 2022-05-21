@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ordenarPorFecha from '../helpers/ordenarPorFecha';
-import DestacadaPorCateg from './DestacadaPorCateg';
 import NoticiaGeneral from './NoticiaGeneral';
+import NoticiaDestacada from '../inicio/NoticiaDestacada.js';
 
 const PagCategoria = (props) => {
     let [categoryNews, setCategoryNews] = useState(null);
@@ -68,7 +68,7 @@ const PagCategoria = (props) => {
                 <div className='col-sm-12 col-md-10'>
                     <div>
                         {
-                            (Object.keys(noticiaDestacada).length > 0) ? <DestacadaPorCateg key={noticiaDestacada._id} noticia={noticiaDestacada}></DestacadaPorCateg> : null
+                            (Object.keys(noticiaDestacada).length > 0) ? <NoticiaDestacada key={noticiaDestacada._id} noticia={noticiaDestacada}></NoticiaDestacada> : null
                         }
                     </div>
                     <div>

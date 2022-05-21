@@ -12,7 +12,9 @@ const CuerpoDestacadas = (props) => {
 
   return (
     <div>
-      <h3 className="display-3">Noticias Destacadas</h3>
+      {
+        noticiasDestacadas ? <h3 className="display-3">DESTACADAS</h3> : null
+      }
       <hr />
       <section>
         {noticiasDestacadas ?
