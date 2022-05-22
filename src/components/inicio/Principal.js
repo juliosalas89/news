@@ -44,7 +44,7 @@ const Principal = (props) => {
     <article>
       <div className="container">
         <section className="my-3 d-flex">
-          <div className="border border-primary w-50 text-center"><h5>Aquí va una add</h5></div>
+          <div className="bg-lineas-diagonales w-50 text-center"><h5 className="my-3">Aquí va una add</h5></div>
           {clima ? <CardClima clima={clima}></CardClima> : null}
           {(dolar && yen) ? <CardDivisas dolar={dolar} yen={yen}></CardDivisas> : null}
         </section>
@@ -52,7 +52,7 @@ const Principal = (props) => {
           <div className="col-sm-12 col-md-9">
             <CuerpoDestacadas noticias={props.noticias}></CuerpoDestacadas>
           </div>
-          <div className="border border-primary col-sm-12 col-md-3"><h5>Aquí va una add</h5></div>
+          <div className="bg-lineas-diagonales text-center col-sm-12 col-md-3"><h5 className="my-3 sticky-top">Aquí va una add</h5></div>
         </section>
         <section>
           <CuerpoCategorias noticias={props.noticias} categorias={props.categorias}></CuerpoCategorias>
