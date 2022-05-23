@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form'
+import Editor from './Editor';
+
 
 const AgregarNoticia = () => {
+    
+    const [content, setContent] = useState('')
+
+    useEffect(()=> {
+        console.log(content);
+    },[content])
+
     return (
         <div className='container'>
             <h3 className="display-3">AGREGAR NUEVA NOTICIA</h3>
@@ -24,7 +33,7 @@ const AgregarNoticia = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Cuerpo de la noticia</Form.Label>
-                    <Form.Control as="textarea" rows={3} />
+                    <Editor content={content} setContent={setContent}></Editor>
                 </Form.Group>
             </Form>
         </div>
