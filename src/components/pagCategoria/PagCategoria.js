@@ -77,8 +77,8 @@ const PagCategoria = (props) => {
                         }
                     </div>
                 </div>
-                <div className='border border-primary col-sm-12 col-md-2'>
-                    <h5>aqui va una add</h5>
+                <div className='bg-lineas-diagonales col-sm-12 col-md-2'>
+                    <h5 className='sticky-top my-3 text-center'>Aqui va una add</h5>
                 </div>
             </section>
         </div>

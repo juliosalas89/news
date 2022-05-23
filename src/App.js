@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Routes, Route } from "react-router-dom"
 import PagCategoria from './components/pagCategoria/PagCategoria';
 import PagNoticia from './components/noticias/PagNoticia';
+import AgregarNoticia from './components/administrador/AgregarNoticia';
 
 function App() {
   let [categoriaNav, setCategoriaNav] = useState(null)
@@ -39,18 +40,23 @@ function App() {
   }
 
   return (
-    <div>
-      {
-        categorias ? <Header setCategoriaNav={setCategoriaNav} categorias={categorias}></Header> : null
-      }
-      <Routes>
-        <Route path="/" element={
-          (noticias && categorias) ? <Principal noticias={noticias} categorias={categorias}></Principal> : null
-        }> </Route>
-        <Route path="/categoria/:id" element={<PagCategoria categoriaNav={categoriaNav} noticias={noticias} categorias={categorias}></PagCategoria>}></Route>
-        <Route path='/noticia/:id' element={<PagNoticia noticias={noticias}></PagNoticia>}></Route>
-      </Routes>
-      <Footer></Footer>
+    <div className='altura-minima d-flex flex-column justify-content-between'>
+      <div>
+        {
+          categorias ? <Header setCategoriaNav={setCategoriaNav} categorias={categorias}></Header> : null
+        }
+        <Routes>
+          <Route path="/" element={
+            (noticias && categorias) ? <Principal noticias={noticias} categorias={categorias}></Principal> : null
+          }> </Route>
+          <Route path="/categoria/:id" element={<PagCategoria categoriaNav={categoriaNav} noticias={noticias} categorias={categorias}></PagCategoria>}></Route>
+          <Route path='/noticia/:id' element={<PagNoticia noticias={noticias}></PagNoticia>}></Route>
+          <Route path='/admin/agregar' element={<AgregarNoticia></AgregarNoticia>}></Route>
+        </Routes>
+      </div>
+      <div>
+        <Footer></Footer>
+      </div>
     </div>
   );
 }
