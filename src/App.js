@@ -22,7 +22,7 @@ function App() {
 
   let consultarNoticias = async () => {
     try {
-      let consulta = await fetch("http://localhost:4000/api/noticias");
+      let consulta = await fetch("https://noticias-back.herokuapp.com/api/noticias");
       let respuesta = await consulta.json();
       setNoticias(respuesta)
     } catch (error) {
@@ -32,7 +32,7 @@ function App() {
 
   let consultarCategorias = async () => {
     try {
-      let consulta = await fetch("http://localhost:4000/api/categorias")
+      let consulta = await fetch("https://noticias-back.herokuapp.com/api/categorias")
       let respuesta = await consulta.json();
       setCategorias(respuesta)
     } catch (error) {
