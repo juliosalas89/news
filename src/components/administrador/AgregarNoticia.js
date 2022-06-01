@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Editor from './Editor';
+import Swal from 'sweetalert2'
 
 
 const AgregarNoticia = () => {
@@ -10,18 +11,85 @@ const AgregarNoticia = () => {
     const [descripcion, setDescripcion] = useState("");
     const [validDescripcion, setValidDescripcion] = useState(false);
     const [foto, setFoto] = useState("");
+    const [validFoto, setValidFoto] = useState(false);
     const [pieDeFoto, setPieDeFoto] = useState("");
-    const [validFoto, setValidFoto] = useState("");
-    const [cuerpo, setCuerpo] = useState('')
-    const [validCuerpo, setValidCuerpo] = useState('')
+    const [cuerpo, setCuerpo] = useState('');
+    const [validCuerpo, setValidCuerpo] = useState(false)
+    const [categoria, setCategoria] = useState('');
+    const [validCategoria, setValidCategoria] = useState(false);
+    const [autor, setAutor] = useState('');
+    const [validAutor, setValidAutor] = useState(false);
+    const [destacada, setDestacada] = useState(false);
 
-    useEffect(() => {
-        console.log(cuerpo);
-    }, [cuerpo])
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let validacion = false
+        validarCampos();
+        if (validarCampos()) {
+            return
+        }
+
+        const datos = {
+            titulo,
+            descripcion,
+            foto,
+            pieDeFoto,
+            cuerpo,
+            categoria,
+            autor,
+            fecha: Date(),
+            destacada
+        }
+
+        try {
+            const cabecera = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(datos)
+            }
+            const resultado = await fetch("https://noticias-back.herokuapp.com/api/noticias", cabecera);
+            console.log(resultado)
+            if (resultado.status === 201) {
+                Swal.fire(
+                    'noticia agregada',
+                    'La noticia se creó correctamente',
+                    'success'
+                )
+                //redireccionamos a la lista de productos usando la funcion "navigate" creada arriba definida con el "useNavigate"
+                //navigate("/productos") //si ademas queremos que se elimine la ruta anteior del historial y sea reemplazada por esta pordemos escribir la línea de esta forma: navigate("/productos", {replace: true}).
+                //Otra cosa que se puede hacer con el navigate es moverme hacia adelante o hacia atrás con el nvigate introduciendo numeros positivos (si quiero navegar hacia adelante) o negativos (si quiero navegar hacia atras), de esta forma por ejemplo vuelve atras: navigate(-1) 
+            } else {
+                Swal.fire(
+                    'OOPS...',
+                    'Ocurrió un error inesperado, intentelo nuevamente',
+                    'error'
+                )
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    let destacarNoticia = ()=> {
+        const checkbox = document.getElementById("checkbox-1")
+        if (checkbox.checked) {
+            setDestacada(true)
+            
+        } else {
+            setDestacada(false)
+        }
+    }
+
+    const validarCampos = () => {
+        let validacion = false;
+        if (autor.trim() === "") {
+            setValidAutor(true)
+            validacion = true;
+        } else {
+            setValidAutor(false)
+        }
 
         if (titulo.trim() === "") {
             setValidTitulo(true)
@@ -51,15 +119,28 @@ const AgregarNoticia = () => {
             setValidCuerpo(false)
         }
 
-        if (validacion) {
-            return
+        if (categoria.trim() === "") {
+            setValidCategoria(true)
+            validacion = true;
+        } else {
+            setValidCategoria(false)
         }
+        return validacion;
     }
 
     return (
         <div className='container'>
-            <h3 className="display-3">AGREGAR NUEVA NOTICIA</h3>
+            <h3 className="mt-4 display-3">AGREGAR NUEVA NOTICIA</h3>
             <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="1">
+                    <Form.Label>Autor</Form.Label>
+                    <Form.Control onChange={(e) => setAutor(e.target.value)} type="text" placeholder="Introduzca el nombre del autor de la noticia." />
+                    {validAutor ? (
+                        <Form.Text className="text-danger">
+                            Debe ingresar un autor
+                        </Form.Text>
+                    ) : null}
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="1">
                     <Form.Label>Título de la noticia</Form.Label>
                     <Form.Control onChange={(e) => setTitulo(e.target.value)} type="text" placeholder="El formato será aplicado luego automáticamente." />
@@ -99,6 +180,26 @@ const AgregarNoticia = () => {
                             Debe ingresar el cuerpo de la noticia
                         </Form.Text>
                     ) : null}
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="1">
+                    <Form.Label>Categoria</Form.Label>
+                    <Form.Control onChange={(e) => setCategoria(e.target.value)} type="text" placeholder="Seleccione una categoria" />
+                    {validCategoria ? (
+                        <Form.Text className="text-danger">
+                            Debe ingresar una categoria
+                        </Form.Text>
+                    ) : null}
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Check type="checkbox"
+                        id={`checkbox-1`} 
+                        label="Destacar esta noticia" 
+                        value="destacada"
+                        onChange={destacarNoticia}
+                        />
+                        <Form.Text className="form-text">
+                            Luego también puedes destacar o retirar de destacadas una noticia, desde la administración de noticias.
+                        </Form.Text>
                 </Form.Group>
                 <Button type="submit">Agregar noticia</Button>
             </Form>

@@ -10,10 +10,10 @@ const Editor = (props) => {
     return (
         <JoditEditor
             ref={editor}
-            value={props.cuerpo}
+            // value={props.cuerpo}
             tabIndex={1} // tabIndex of textarea
-            onBlur={newContent => props.setCuerpo(newContent)} // preferred to use only this option to update the content for performance reasons
-            onChange={newContent => { }}
+            // onBlur={newContent => props.setCuerpo(newContent)} // preferred to use only this option to update the content for performance reasons
+            onChange={newContent => props.setCuerpo(newContent)}
         />
     );
 };
