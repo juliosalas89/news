@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import CardClima from "./CardClima";
 import CardDivisas from "./CardDivisas";
 import CuerpoCategorias from "./CuerpoCategorias";
@@ -45,16 +43,6 @@ const Principal = (props) => {
   return (
     <article>
       <div className="container">
-        <section className="p-2 my-3 border">
-          <div>
-          <Link className="btn btn-outline-primary" exact={"true"} to={"/admin/agregar"}>Publicar nueva noticia</Link>
-          <Link className="btn btn-outline-primary" exact={"true"} to={"/admin/listaNoticias"}>Ver todas las noticias</Link>
-          <Link className="btn btn-outline-primary" exact={"true"} to={"/admin/listaCategorias"}>Ver todas las categorias</Link>
-          </div>
-          <div>
-          <Form.Text>Sólo los administradores pueden ver este menú</Form.Text>
-          </div>
-        </section>
         <section className="my-3 d-flex">
           <div className="bg-lineas-diagonales w-50 text-center"><h5 className="my-3">Aquí va una add</h5></div>
           {clima ? <CardClima clima={clima}></CardClima> : null}

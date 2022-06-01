@@ -4,13 +4,13 @@ import React from 'react';
 import { useRef } from 'react';
 import JoditEditor from "jodit-react";
 
-const Editor = (props) => {
+const EditorTexto = (props) => {
     const editor = useRef(null)
 
     return (
         <JoditEditor
             ref={editor}
-            // value={props.cuerpo}
+            value={props.cuerpoInicial}
             tabIndex={1} // tabIndex of textarea
             // onBlur={newContent => props.setCuerpo(newContent)} // preferred to use only this option to update the content for performance reasons
             onChange={newContent => props.setCuerpo(newContent)}
@@ -18,4 +18,4 @@ const Editor = (props) => {
     );
 };
 
-export default Editor;
+export default EditorTexto;
