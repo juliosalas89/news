@@ -14,9 +14,19 @@ const PagNoticia = (props) => {
         // eslint-disable-next-line
     }, [props.noticias])
 
+    useEffect(() => {
+        if (noticia) {
+            escribirCuerpo()
+        }
+        // eslint-disable-next-line
+    }, [noticia])
+
     let encontrarNoticia = () => {
         let noticiaEncontrada = props.noticias.find(noticia => noticia._id === params.id)
         setNoticia(noticiaEncontrada)
+    }
+    const escribirCuerpo = ()=> {
+        document.getElementById("cuerpo").innerHTML = noticia.cuerpo;
     }
 
     return (
@@ -29,7 +39,7 @@ const PagNoticia = (props) => {
                         <h4>{mayusculas(noticia.descripcion)}</h4>
                         <img src={noticia.foto} alt={noticia.titulo}/>
                         <p>{noticia.pieDeFoto}</p>
-                        <div>{noticia.cuerpo}</div>
+                        <div id="cuerpo"></div>
                     </div>
                     : null
             }

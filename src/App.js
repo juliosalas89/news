@@ -9,6 +9,9 @@ import PagCategoria from './components/pagCategoria/PagCategoria';
 import PagNoticia from './components/noticias/PagNoticia';
 import AgregarNoticia from './components/administrador/AgregarNoticia';
 import Error404 from './components/error/Error404';
+import ListaNoticias from './components/administrador/ListaNoticias';
+import ListaCategorias from './components/administrador/ListaCategorias';
+import EditarNoticia from './components/administrador/EditarNoticia';
 
 function App() {
   let [categoriaNav, setCategoriaNav] = useState(null)
@@ -25,6 +28,7 @@ function App() {
       let consulta = await fetch("https://noticias-back.herokuapp.com/api/noticias");
       let respuesta = await consulta.json();
       setNoticias(respuesta)
+      console.log(respuesta)
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +57,10 @@ function App() {
           <Route path="/categoria/:id" element={<PagCategoria categoriaNav={categoriaNav} noticias={noticias} categorias={categorias}></PagCategoria>}></Route>
           <Route path='/noticia/:id' element={<PagNoticia noticias={noticias}></PagNoticia>}></Route>
           <Route path='/admin/agregar' element={<AgregarNoticia></AgregarNoticia>}></Route>
-          <Route exact path="*" element={<Navigate replace to="/" />}/>
+          <Route exact path="*" element={<Navigate replace to="/" />}></Route>
+          <Route path='/admin/listaNoticias' element={<ListaNoticias noticias={noticias} categorias={categorias}></ListaNoticias>}></Route>
+          <Route path='/admin/listaCategorias' element={<ListaCategorias noticias={noticias} categorias={categorias}></ListaCategorias>}></Route>
+          <Route path='/admin/editar/:id' element={<EditarNoticia noticias={noticias}></EditarNoticia>}></Route>
         </Routes>
       </div>
       <div>
