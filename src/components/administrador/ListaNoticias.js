@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import parseFecha from "../helpers/parseFecha";
 import mayusculas from "../helpers/mayusculas";
+import primerasLetrasMayuscula from "../helpers/primerasLetrasMayuscula.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
@@ -68,9 +69,9 @@ const ListaNoticias = (props) => {
                         props.noticias ? props.noticias.map(noticia => (
                             <tr key={noticia._id}>
                                 <td>{parseFecha(noticia.fecha)}</td>
-                                <td>{noticia.titulo}</td>
-                                <td>{noticia.categoria}</td>
-                                <td>{noticia.autor}</td>
+                                <td>{mayusculas(noticia.titulo)}</td>
+                                <td>{primerasLetrasMayuscula(noticia.categoria)}</td>
+                                <td>{primerasLetrasMayuscula(noticia.autor)}</td>
                                 <td>
                                     <div className='d-flex justify-content-around'>
                                         <Link exact={"true"} to={`/admin/editar/${noticia._id}`}><FontAwesomeIcon icon={faPenToSquare} /></Link>

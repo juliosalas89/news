@@ -13,6 +13,7 @@ const FormNoticia = (props) => {
         [foto, setFoto] = useState(""),
         [validFoto, setValidFoto] = useState(false),
         [pieDeFoto, setPieDeFoto] = useState(""),
+        [validPieDeFoto, setValidPieDeFoto] = useState(false),
         [cuerpo, setCuerpo] = useState(''),
         [cuerpoInicial, setCuerpoInicial] = useState(null),
         [validCuerpo, setValidCuerpo] = useState(false),
@@ -123,7 +124,7 @@ const FormNoticia = (props) => {
                     )
                     props.setConsultarBack(true)
                     //redireccionamos a la lista de productos usando la funcion "navigate" creada arriba definida con el "useNavigate"
-                    navigate(`/noticia/${props.noticia._id}`, { replace: true }) //si ademas queremos que se elimine la ruta anteior del historial y sea reemplazada por esta pordemos escribir la línea de esta forma: navigate("/productos", {replace: true}).
+                    navigate('/admin/listaNoticias', { replace: true }) //si ademas queremos que se elimine la ruta anteior del historial y sea reemplazada por esta pordemos escribir la línea de esta forma: navigate("/productos", {replace: true}).
                     //Otra cosa que se puede hacer con el navigate es moverme hacia adelante o hacia atrás con el nvigate introduciendo numeros positivos (si quiero navegar hacia adelante) o negativos (si quiero navegar hacia atras), de esta forma por ejemplo vuelve atras: navigate(-1) 
                 } else {
                     Swal.fire(
@@ -177,6 +178,13 @@ const FormNoticia = (props) => {
             validacion = true;
         } else {
             setValidFoto(false)
+        }
+
+        if (pieDeFoto.trim() === "") {
+            setValidPieDeFoto(true)
+            validacion = true;
+        } else {
+            setValidPieDeFoto(false)
         }
 
         if (cuerpo.trim() === "") {
@@ -237,6 +245,11 @@ const FormNoticia = (props) => {
                 <Form.Group className="mb-3">
                     <Form.Label>Pie de foto</Form.Label>
                     <Form.Control id="pieDeFoto" onChange={(e) => setPieDeFoto(e.target.value)} type="text" placeholder="El formato será aplicado luego automáticamente." />
+                    {validPieDeFoto ? (
+                        <Form.Text className="text-danger">
+                            Debe ingresar una descripcion de la foto.
+                        </Form.Text>
+                    ) : null}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Cuerpo de la noticia</Form.Label>
