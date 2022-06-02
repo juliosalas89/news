@@ -148,6 +148,7 @@ const FormNoticia = (props) => {
         }
     }
 
+    //esta funcion valida los campos, si algo esta mal cambia el valor del state "valid" corresondiente para mostrar un alert en el input mal completado. Ademas retorna un true si estan todos los campos bien completados, o un false si falta alguno, entonces la funcion submit sabe si debe continuar con el proceso de enviar al back o abortar.
     const validarCampos = () => {
         let validacion = false;
         if (autor.trim() === "") {

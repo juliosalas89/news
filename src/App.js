@@ -18,7 +18,7 @@ function App() {
   const [categoriaNav, setCategoriaNav] = useState(null)
   const [noticias, setNoticias] = useState(null);
   const [categorias, setCategorias] = useState(null);
-  const [consultarBack, setConsultarBack] = useState(true)
+  const [consultarBack, setConsultarBack] = useState(true);
 
   useEffect(() => {
     if (consultarBack) {
@@ -71,10 +71,10 @@ function App() {
             (noticias && categorias) ? <Principal noticias={noticias} categorias={categorias}></Principal> : <Error404></Error404>
           }> </Route>
           <Route path="/categoria/:id" element={<PagCategoria categoriaNav={categoriaNav} noticias={noticias} categorias={categorias}></PagCategoria>}></Route>
-          <Route path='/noticia/:id' element={<PagNoticia noticias={noticias}></PagNoticia>}></Route>
+          <Route path='/noticia/:id' element={<PagNoticia setConsultarBack={setConsultarBack} noticias={noticias}></PagNoticia>}></Route>
           <Route path='/admin/agregar' element={<AgregarNoticia setConsultarBack={setConsultarBack}></AgregarNoticia>}></Route>
           <Route exact path="*" element={<Navigate replace to="/" />}></Route>
-          <Route path='/admin/listaNoticias' element={<ListaNoticias noticias={noticias} categorias={categorias}></ListaNoticias>}></Route>
+          <Route path='/admin/listaNoticias' element={<ListaNoticias setConsultarBack={setConsultarBack} noticias={noticias} categorias={categorias}></ListaNoticias>}></Route>
           <Route path='/admin/listaCategorias' element={<ListaCategorias noticias={noticias} categorias={categorias}></ListaCategorias>}></Route>
           <Route path='/admin/editar/:id' element={<EditarNoticia setConsultarBack={setConsultarBack} noticias={noticias}></EditarNoticia>}></Route>
         </Routes>
