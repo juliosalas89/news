@@ -93,7 +93,7 @@ const FormNoticia = (props) => {
                         'success'
                     )
                     props.setConsultarBack(true)
-                    navigate("/admin/listaNoticias", { replace: true })
+                    navigate(`/noticia/${props.noticia._id}`, { replace: true })
                 } else {
                     Swal.fire(
                         'OOPS...',
@@ -123,7 +123,7 @@ const FormNoticia = (props) => {
                     )
                     props.setConsultarBack(true)
                     //redireccionamos a la lista de productos usando la funcion "navigate" creada arriba definida con el "useNavigate"
-                    navigate("/admin/listaNoticias", { replace: true }) //si ademas queremos que se elimine la ruta anteior del historial y sea reemplazada por esta pordemos escribir la línea de esta forma: navigate("/productos", {replace: true}).
+                    navigate(`/noticia/${props.noticia._id}`, { replace: true }) //si ademas queremos que se elimine la ruta anteior del historial y sea reemplazada por esta pordemos escribir la línea de esta forma: navigate("/productos", {replace: true}).
                     //Otra cosa que se puede hacer con el navigate es moverme hacia adelante o hacia atrás con el nvigate introduciendo numeros positivos (si quiero navegar hacia adelante) o negativos (si quiero navegar hacia atras), de esta forma por ejemplo vuelve atras: navigate(-1) 
                 } else {
                     Swal.fire(

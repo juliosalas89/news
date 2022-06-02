@@ -33,8 +33,8 @@ const PagNoticia = (props) => {
         document.getElementById("cuerpo").innerHTML = noticia.cuerpo;
     }
 
-    const eliminarNoticia = async (id) => {
-        await Swal.fire({
+    const eliminarNoticia = (id) => {
+        Swal.fire({
             title: `¿Seguro que quieres borrar esta noticia?`,
             text: `${parseFecha(noticia.fecha)}: ${mayusculas(noticia.titulo)}.`,
             icon: 'warning',
@@ -69,7 +69,6 @@ const PagNoticia = (props) => {
                         'error'
                     )
                 }
-
             }
         })
     }
@@ -79,7 +78,7 @@ const PagNoticia = (props) => {
             {
                 noticia ?
                     <section>
-                        <Link className='btn btn-outline-primary' to={`admin/editar/${noticia._id}`} >Editar esta noticia</Link>
+                        <Link className='btn btn-outline-primary' to={`/admin/editar/${noticia._id}`} >Editar esta noticia</Link>
                         <Button variant='outline-danger' onClick={() => eliminarNoticia(noticia._id)} >Eliminar esta noticia</Button>
                         <div>
                             <h1 className='my-4'>{primerasLetrasMayuscula(noticia.titulo)}</h1>

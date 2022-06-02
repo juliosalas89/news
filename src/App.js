@@ -34,7 +34,6 @@ function App() {
       let consulta = await fetch("https://noticias-back.herokuapp.com/api/noticias");
       let respuesta = await consulta.json();
       setNoticias(respuesta)
-      console.log(respuesta)
     } catch (error) {
       console.log(error);
     }
