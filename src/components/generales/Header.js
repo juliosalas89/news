@@ -34,7 +34,7 @@ const Header = (props) => {
               <Nav.Link href="#masCategorias"></Nav.Link>
               <NavDropdown title="Más Categorías" id="collasible-nav-dropdown">
                 {
-                  props.categorias.slice(5, 100).map(categoria => <CategLink key={categoria._id} setCategoriaNav={props.setCategoriaNav} categoria={categoria} clase={dropItemClass}></CategLink>)
+                  props.categorias.slice(4, 100).map(categoria => <CategLink key={categoria._id} setCategoriaNav={props.setCategoriaNav} categoria={categoria} clase={dropItemClass}></CategLink>)
                 }
               </NavDropdown>
             </Nav>
